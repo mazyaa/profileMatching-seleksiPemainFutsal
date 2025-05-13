@@ -10,44 +10,44 @@ class CreatePemain extends Migration
     {
         $this->forge->addField([
             'id' => [
-            'type'           => 'INT',
-            'constraint'     => 11,
-            'unsigned'       => true,
-            'auto_increment' => true,
+                'type'           => 'INT',
+                'constraint'     => 11,
+                'unsigned'       => true,
+                'auto_increment' => true,
             ],
             'nama' => [
-            'type'       => 'VARCHAR',
-            'constraint' => 100,
+                'type'       => 'VARCHAR',
+                'constraint' => 100,
             ],
             'tanggal_lahir' => [
-            'type' => 'DATE',
+                'type' => 'DATE',
             ],
             'tinggi_badan' => [
-            'type'       => 'VARCHAR',
-            'constraint' => 50,
+                'type'       => 'VARCHAR',
+                'constraint' => 50,
             ],
             'pendidikan' => [
-            'type'       => 'VARCHAR',
-            'constraint' => 50,
+                'type'       => 'VARCHAR',
+                'constraint' => 50,
             ],
             'alamat' => [
-            'type'       => 'TEXT',
+                'type'       => 'TEXT',
             ],
             'no_hp' => [
-            'type'       => 'VARCHAR',
-            'constraint' => 20,
+                'type'       => 'VARCHAR',
+                'constraint' => 20,
             ],
             'status_seleksi' => [
-            'type'       => 'VARCHAR',
-            'constraint' => 20,
+                'type'       => 'VARCHAR',
+                'constraint' => 20,
             ],
             'created_at' => [
-            'type'    => 'DATETIME',
-            'null'    => true,
+                'type'    => 'DATETIME',
+                'null'    => true,
             ],
             'updated_at' => [
-            'type'    => 'DATETIME',
-            'null'    => true,
+                'type'    => 'DATETIME',
+                'null'    => true,
             ],
         ]);
         $this->forge->addKey('id', true);

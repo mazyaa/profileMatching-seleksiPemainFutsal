@@ -10,36 +10,36 @@ class CreateKriteria extends Migration
     {
         $this->forge->addField([
             'id' => [
-            'type'           => 'INT',
-            'constraint'     => 11,
-            'unsigned'       => true,
-            'auto_increment' => true,
+                'type'           => 'INT',
+                'constraint'     => 11,
+                'unsigned'       => true,
+                'auto_increment' => true,
             ],
             'kode' => [
-            'type'       => 'VARCHAR',
-            'constraint' => '12',
+                'type'       => 'VARCHAR',
+                'constraint' => '12',
             ],
             'nama_kriteria' => [
-            'type'       => 'VARCHAR',
-            'constraint' => '100',
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
             ],
             'tipe' => [
-            'type'       => 'ENUM',
-            'constraint' => ['core', 'secondary'],
-            'default'    => 'core',
+                'type'       => 'ENUM',
+                'constraint' => ['core', 'secondary'],
+                'default'    => 'core',
             ],
             'nilai_ideal' => [
-            'type'       => 'INT',
-            'constraint' => 11,
-            'default'    => 5,
+                'type'       => 'INT',
+                'constraint' => 11,
+                'default'    => 5,
             ],
             'created_at' => [
-            'type'    => 'DATETIME',
-            'null'    => true,
+                'type'    => 'DATETIME',
+                'null'    => true,
             ],
             'updated_at' => [
-            'type'    => 'DATETIME',
-            'null'    => true,
+                'type'    => 'DATETIME',
+                'null'    => true,
             ],
         ]);
         $this->forge->addKey('id', true);
