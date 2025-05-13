@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PemainModel extends Model
+class HasilSeleksiModel extends Model
 {
-    protected $table            = 'pemain';
+    protected $table            = 'hasilseleksis';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nama', 'tinggi_badan', 'alamat', 'no_hp', 'created_at', 'updated_at'];
+    protected $allowedFields    = ['id_pemain', 'nilai_cf', 'nilai_sf', 'nilai_total', 'rangking', 'created_at', 'updated_at'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -25,8 +25,7 @@ class PemainModel extends Model
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
-
-    // protected $deletedField  = 'deleted_at';
+    protected $deletedField  = 'deleted_at';
 
     // Validation
     protected $validationRules      = [];

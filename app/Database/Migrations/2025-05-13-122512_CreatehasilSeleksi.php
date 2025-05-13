@@ -44,11 +44,11 @@ class CreatehasilSeleksi extends Migration
                 'null'       => true,
             ],
             'created_at' => [
-                'type'    => 'DATETIME',
+                'type'    => 'DATE',
                 'null'    => true,
             ],
             'updated_at' => [
-                'type'    => 'DATETIME',
+                'type'    => 'DATE',
                 'null'    => true,
             ],
         ]);

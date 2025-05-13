@@ -14,13 +14,13 @@ $routes->group('auth', function ($routes) {
 
 
 $routes->group('pelatih', function ($routes) {
-        $routes->get('dashboard', 'PelatihController\DashboardController::index');
-        $routes->get('pemain', 'PelatihController\Pemain::index');
-        $routes->get('pemain/create', 'PelatihController\Pemain::create');
-        $routes->post('pemain/store', 'PelatihController\Pemain::store');
-        $routes->get('pemain/edit/(:num)', 'PelatihController\Pemain::edit/$1');
-        $routes->post('pemain/update/(:num)', 'PelatihController\Pemain::update/$1');
-        $routes->post('pemain/delete/(:num)', 'PelatihController\Pemain::delete/$1');
+        $routes->get('dashboard', 'PelatihController\DashboardController::index', ['filter' => 'pelatih']);
+        $routes->get('pemain', 'PelatihController\Pemain::index', ['filter' => 'pelatih']);
+        $routes->Post('inputPemain', 'PelatihController\Pemain::create', ['filter' => 'pelatih']);
+        $routes->post('pemain/store', 'PelatihController\Pemain::store', ['filter' => 'pelatih']);
+        $routes->get('pemain/edit/(:num)', 'PelatihController\Pemain::edit/$1', ['filter' => 'pelatih']);
+        $routes->post('pemain/update/(:num)', 'PelatihController\Pemain::update/$1', ['filter' => 'pelatih']);
+        $routes->post('pemain/delete/(:num)', 'PelatihController\Pemain::delete/$1', ['filter' => 'pelatih']);
 });
 
 $routes->group('admin', function ($routes) {

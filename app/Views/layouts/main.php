@@ -114,13 +114,13 @@ $userRole = session()->get('role');
 
         <!-- Sidebar untuk Pelatih -->
         <?php if ($userRole == 'pelatih'): ?>
-          <a href="<?= site_url('kriteria') ?>"><i class="bi bi-list-check me-2"></i>Kriteria</a>
-          <a href="<?= site_url('pemain/create') ?>"><i class="bi bi-person-plus me-2"></i>Input Data Pemain</a>
-          <a href="<?= site_url('pemain') ?>"><i class="bi bi-people me-2"></i>Data Pemain</a>
-          <a href="<?= site_url('pemain/lolos') ?>"><i class="bi bi-check-circle me-2"></i>Pemain Lolos</a>
-          <a href="<?= site_url('pemain/tidaklolos') ?>"><i class="bi bi-x-circle me-2"></i>Pemain Tidak Lolos</a>
-          <a href="<?= site_url('penilaian') ?>"><i class="bi bi-star me-2"></i>Penilaian</a>
-          <a href="<?= site_url('penilaian/hasil') ?>"><i class="bi bi-clipboard-data me-2"></i>Hasil Penilaian</a>
+          <a href="<?= base_url('kriteria') ?>"><i class="bi bi-list-check me-2"></i>Kriteria</a>
+          <a href="<?= base_url('pelatih/pemain') ?>"><i class="bi bi-person-plus me-2"></i>Input Data Pemain</a>
+          <a href="<?= base_url('getDataPemain') ?>"><i class="bi bi-people me-2"></i>Data Pemain</a>
+          <a href="<?= base_url('pemain/lolos') ?>"><i class="bi bi-check-circle me-2"></i>Pemain Lolos</a>
+          <a href="<?= base_url('pemain/tidaklolos') ?>"><i class="bi bi-x-circle me-2"></i>Pemain Tidak Lolos</a>
+          <a href="<?= base_url('penilaian') ?>"><i class="bi bi-star me-2"></i>Penilaian</a>
+          <a href="<?= base_url('penilaian/hasil') ?>"><i class="bi bi-clipboard-data me-2"></i>Hasil Penilaian</a>
           <a id="logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
         <?php endif; ?>
       </div>

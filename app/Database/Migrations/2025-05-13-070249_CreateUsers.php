@@ -30,11 +30,11 @@ class CreateUsers extends Migration
                 'default'    => 'pelatih',
             ],
             'created_at' => [
-                'type'    => 'DATETIME',
+                'type'    => 'DATE',
                 'null'    => true,
             ],
             'updated_at' => [
-                'type'    => 'DATETIME',
+                'type'    => 'DATE',
                 'null'    => true,
             ],
         ]);

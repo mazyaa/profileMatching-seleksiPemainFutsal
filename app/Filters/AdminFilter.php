@@ -44,10 +44,10 @@ class AdminFilter implements FilterInterface
     {
         $session = session();
         $role = $session->get('role');
-        $isLoggedIn = $session->get('logged_in');
+        $isLoggedIn = $session->get('isLoggedIn');
 
         if (!$isLoggedIn || $role !== 'admin') {
-            return redirect()->to('/auth/login')->with('error', 'You do not have permission to access this page.');
+            return redirect()->to('/')->with('error', 'You do not have permission to access this page.');
         }
     }
 }

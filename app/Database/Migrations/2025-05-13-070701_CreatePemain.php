@@ -19,14 +19,7 @@ class CreatePemain extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 100,
             ],
-            'tanggal_lahir' => [
-                'type' => 'DATE',
-            ],
             'tinggi_badan' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 50,
-            ],
-            'pendidikan' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 50,
             ],
@@ -37,16 +30,12 @@ class CreatePemain extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 20,
             ],
-            'status_seleksi' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 20,
-            ],
             'created_at' => [
-                'type'    => 'DATETIME',
+                'type'    => 'DATE',
                 'null'    => true,
             ],
             'updated_at' => [
-                'type'    => 'DATETIME',
+                'type'    => 'DATE',
                 'null'    => true,
             ],
         ]);

@@ -34,11 +34,11 @@ class CreateKriteria extends Migration
                 'default'    => 5,
             ],
             'created_at' => [
-                'type'    => 'DATETIME',
+                'type'    => 'DATE',
                 'null'    => true,
             ],
             'updated_at' => [
-                'type'    => 'DATETIME',
+                'type'    => 'DATE',
                 'null'    => true,
             ],
         ]);

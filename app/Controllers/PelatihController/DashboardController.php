@@ -16,4 +16,5 @@ class DashboardController extends BaseController
 
         return view('pelatih/dashboard', $data);
     }
+
 }

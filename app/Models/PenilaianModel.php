@@ -12,7 +12,7 @@ class PenilaianModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_pemain', 'id_kriteria', 'nilai'];
+    protected $allowedFields    = ['id_pemain', 'id_kriteria', 'nilai' , 'created_at', 'updated_at'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
