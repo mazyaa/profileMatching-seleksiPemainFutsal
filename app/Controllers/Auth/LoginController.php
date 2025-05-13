@@ -65,6 +65,7 @@ class LoginController extends BaseController
         if ($user && $passwordVerify) {
             session()->set([
                 'id' => $user['id'],
+                'username' => $user['username'],
                 'role' => $user['role'],
                 'isLoggedIn' => true,
             ]);
