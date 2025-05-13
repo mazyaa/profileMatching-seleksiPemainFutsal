@@ -32,8 +32,6 @@ class Pemain extends BaseController
             'tinggi_badan' => $json['tinggi_badan'],
             'alamat' => $json['alamat'],
             'no_hp' => $json['no_hp'],
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
         ];
 
         $rules = [

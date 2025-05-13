@@ -31,11 +31,11 @@ class CreatePemain extends Migration
                 'constraint' => 20,
             ],
             'created_at' => [
-                'type'    => 'DATE',
+                'type'    => 'DATETIME',
                 'null'    => true,
             ],
             'updated_at' => [
-                'type'    => 'DATE',
+                'type'    => 'DATETIME',
                 'null'    => true,
             ],
         ]);

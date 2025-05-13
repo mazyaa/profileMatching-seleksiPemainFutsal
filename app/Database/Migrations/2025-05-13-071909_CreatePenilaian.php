@@ -31,11 +31,11 @@ class CreatePenilaian extends Migration
                 'null'       => false,
             ],
             'created_at' => [
-                'type'    => 'DATE',
+                'type'    => 'DATETIME',
                 'null'    => true,
             ],
             'updated_at' => [
-                'type'    => 'DATE',
+                'type'    => 'DATETIME',
                 'null'    => true,
             ],
         ]);
