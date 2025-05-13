@@ -3,6 +3,7 @@
 use CodeIgniter\I18n\Time;
 
 $loggedIn = session()->get('isLoggedIn') ?? false;
+$userRole = session()->get('role');
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -58,7 +59,6 @@ $loggedIn = session()->get('isLoggedIn') ?? false;
     }
 
     .content-area {
-      margin-left: 200px;
       padding: 1rem;
       width: 100%;
     }
@@ -105,11 +105,24 @@ $loggedIn = session()->get('isLoggedIn') ?? false;
       <!-- Sidebar -->
       <div class="sidebar" id="sidebar">
         <h5><i class="bi bi-controller"></i> SPK Futsal</h5>
-        <a href="<?= site_url('dashboard') ?>"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
-        <a href="<?= site_url('pemain') ?>"><i class="bi bi-people me-2"></i>Data Pemain</a>
-        <a href="<?= site_url('kriteria') ?>"><i class="bi bi-list-check me-2"></i>Kriteria</a>
-        <a href="<?= site_url('penilaian') ?>"><i class="bi bi-star me-2"></i>Penilaian</a>
-        <a href="#" id="logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
+        <?php if ($userRole == 'admin'): ?>
+          <a href="<?= site_url('dashboard') ?>"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+          <a href="<?= site_url('pelatih') ?>"><i class="bi bi-person-badge me-2"></i>Data Pelatih</a>
+          <a href="<?= site_url('pelatih/create') ?>"><i class="bi bi-person-plus me-2"></i>Tambah Pelatih</a>
+          <a id="logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
+        <?php endif; ?>
+
+        <!-- Sidebar untuk Pelatih -->
+        <?php if ($userRole == 'pelatih'): ?>
+          <a href="<?= site_url('kriteria') ?>"><i class="bi bi-list-check me-2"></i>Kriteria</a>
+          <a href="<?= site_url('pemain/create') ?>"><i class="bi bi-person-plus me-2"></i>Input Data Pemain</a>
+          <a href="<?= site_url('pemain') ?>"><i class="bi bi-people me-2"></i>Data Pemain</a>
+          <a href="<?= site_url('pemain/lolos') ?>"><i class="bi bi-check-circle me-2"></i>Pemain Lolos</a>
+          <a href="<?= site_url('pemain/tidaklolos') ?>"><i class="bi bi-x-circle me-2"></i>Pemain Tidak Lolos</a>
+          <a href="<?= site_url('penilaian') ?>"><i class="bi bi-star me-2"></i>Penilaian</a>
+          <a href="<?= site_url('penilaian/hasil') ?>"><i class="bi bi-clipboard-data me-2"></i>Hasil Penilaian</a>
+          <a id="logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
+        <?php endif; ?>
       </div>
 
       <!-- Main Content -->
@@ -132,17 +145,18 @@ $loggedIn = session()->get('isLoggedIn') ?? false;
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     AOS.init();
 
-    $(document).ready(function () {
-      $('#logout').on('click', function (e) {
+    $(document).ready(function() {
+      $('#logout').on('click', function(e) {
         e.preventDefault();
         $.ajax({
-          url: 'auth/logout',
+          url: '/auth/logout',
           type: 'POST',
           dataType: 'json',
-          success: function (response) {
+          success: function(response) {
             Swal.fire({
               icon: 'success',
               title: 'Logout Berhasil',
@@ -151,7 +165,7 @@ $loggedIn = session()->get('isLoggedIn') ?? false;
               window.location.href = '/';
             });
           },
-          error: function (xhr) {
+          error: function(xhr) {
             Swal.fire({
               icon: 'error',
               title: 'Logout Gagal',
@@ -173,13 +187,13 @@ $loggedIn = session()->get('isLoggedIn') ?? false;
         closeBtn.innerHTML = '<i class="bi bi-x-lg"></i>';
         sidebar.insertBefore(closeBtn, sidebar.firstChild);
 
-        closeBtn.addEventListener('click', function () {
+        closeBtn.addEventListener('click', function() {
           sidebar.classList.remove('show');
         });
       }
 
       if (toggleBtn && sidebar) {
-        toggleBtn.addEventListener('click', function () {
+        toggleBtn.addEventListener('click', function() {
           sidebar.classList.toggle('show');
         });
       }
