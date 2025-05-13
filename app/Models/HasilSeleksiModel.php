@@ -12,7 +12,7 @@ class HasilSeleksiModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_pemain', 'nilai_cf', 'nilai_sf', 'nilai_total', 'rangking', 'created_at', 'updated_at'];
+    protected $allowedFields    = ['id_pemain', 'nilai_cf', 'nilai_sf', 'nilai_total', 'rangking'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -21,11 +21,12 @@ class HasilSeleksiModel extends Model
     protected array $castHandlers = [];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
+
+    // protected $deletedField  = 'deleted_at';
 
     // Validation
     protected $validationRules      = [];
