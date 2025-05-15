@@ -60,10 +60,10 @@
                             timer: 1000,
                             showConfirmButton: false
                         })
-                        nama = '';
-                        tinggi_badan = '';
-                        alamat = '';
-                        no_hp = '';
+                        $('#nama').val('');
+                        $('#tinggi_badan').val('');
+                        $('#alamat').val('');
+                        $('#no_hp').val('');
                     } else {
                         Swal.fire({
                             icon: 'error',

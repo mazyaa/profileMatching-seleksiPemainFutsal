@@ -14,10 +14,21 @@ $routes->group('auth', function ($routes) {
 
 
 $routes->group('pelatih', function ($routes) {
+        /** dashboard */
         $routes->get('dashboard', 'PelatihController\DashboardController::index', ['filter' => 'pelatih']);
+
+        /** get kriteria */
+        $routes->get('kriteria', 'PelatihController\KriteriaPemain::index', ['filter' => 'pelatih']);
+        $routes->get('kriteria/fetch', 'PelatihController\KriteriaPemain::getAllCriteria', ['filter' => 'pelatih']);
+
+        /** input pemain */
         $routes->get('pemain', 'PelatihController\Pemain::index', ['filter' => 'pelatih']);
         $routes->Post('inputPemain', 'PelatihController\Pemain::create', ['filter' => 'pelatih']);
-        $routes->post('pemain/store', 'PelatihController\Pemain::store', ['filter' => 'pelatih']);
+
+        /** get pemain after input */
+        $routes->get('getPemain', 'PelatihController\Pemain::getPemain', ['filter' => 'pelatih']);
+        $routes->get('fetchPemain', 'PelatihController\Pemain::fetchPemain', ['filter' => 'pelatih']);
+
         $routes->get('pemain/edit/(:num)', 'PelatihController\Pemain::edit/$1', ['filter' => 'pelatih']);
         $routes->post('pemain/update/(:num)', 'PelatihController\Pemain::update/$1', ['filter' => 'pelatih']);
         $routes->post('pemain/delete/(:num)', 'PelatihController\Pemain::delete/$1', ['filter' => 'pelatih']);
