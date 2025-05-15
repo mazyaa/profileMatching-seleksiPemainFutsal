@@ -29,6 +29,10 @@ $routes->group('pelatih', function ($routes) {
         $routes->get('getPemain', 'PelatihController\Pemain::getPemain', ['filter' => 'pelatih']);
         $routes->get('fetchPemain', 'PelatihController\Pemain::fetchPemain', ['filter' => 'pelatih']);
 
+        /** Hitung pemain */
+        $routes->get('pagePenilaian', 'PelatihController\PenilaianController::index', ['filter' => 'pelatih']);
+        $routes->post('Penilaian', 'PelatihController\PenilaianController::hitungPemain', ['filter' => 'pelatih']);
+
         $routes->get('pemain/edit/(:num)', 'PelatihController\Pemain::edit/$1', ['filter' => 'pelatih']);
         $routes->post('pemain/update/(:num)', 'PelatihController\Pemain::update/$1', ['filter' => 'pelatih']);
         $routes->post('pemain/delete/(:num)', 'PelatihController\Pemain::delete/$1', ['filter' => 'pelatih']);
