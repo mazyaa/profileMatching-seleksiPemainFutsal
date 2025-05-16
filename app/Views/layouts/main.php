@@ -128,9 +128,9 @@ $userRole = session()->get('role');
           <a href="<?= base_url('pelatih/pemain') ?>"><i class="bi bi-person-plus me-2"></i>Input Data Pemain</a>
           <a href="<?= base_url('pelatih/getPemain') ?>"><i class="bi bi-people me-2"></i>Data Pemain</a>
           <a href="<?= base_url('pelatih/pagePenilaian') ?>"><i class="bi bi-star me-2"></i>Penilaian</a>
+          <a href="<?= base_url('pelatih/hasilSeleksi') ?>"><i class="bi bi-clipboard-data me-2"></i>Hasil Penilaian</a>
           <a href="<?= base_url('pemain/lolos') ?>"><i class="bi bi-check-circle me-2"></i>Pemain Lolos</a>
           <a href="<?= base_url('pemain/tidaklolos') ?>"><i class="bi bi-x-circle me-2"></i>Pemain Tidak Lolos</a>
-          <a href="<?= base_url('penilaian/hasil') ?>"><i class="bi bi-clipboard-data me-2"></i>Hasil Penilaian</a>
           <a id="logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
         <?php endif; ?>
       </div>

@@ -18,6 +18,9 @@
             <!-- Data Pemain akan dimuat di sini -->
         </tbody>
     </table>
+    <div class="container mt-4">
+        <button class="btn btn-primary"><a class="text-white text-decoration-none" href="<?= base_url('/pelatih/pagePenilaian') ?>">Nilai Pemain</a></button>
+    </div>
 </div>
 
     <?= $this->endSection() ?>
@@ -47,7 +50,7 @@
             function pemainNotFound() {
                 return `
                 <tr>
-                    <td colspan="5" class="text-center">Tidak ada data pemain ditemukan</td>
+                    <td colspan="6" class="text-center">Tidak ada data pemain ditemukan</td>
                 </tr>
                 `;
             }

@@ -59,7 +59,9 @@
                             text: response.message,
                             timer: 1000,
                             showConfirmButton: false
-                        })
+                        }).then(() => {
+                            window.location.href = '/pelatih/getPemain';
+                        });
                         $('#nama').val('');
                         $('#tinggi_badan').val('');
                         $('#alamat').val('');

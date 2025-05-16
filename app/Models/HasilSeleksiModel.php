@@ -12,7 +12,7 @@ class HasilSeleksiModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_pemain', 'nilai_cf', 'nilai_sf', 'nilai_total', 'rangking'];
+    protected $allowedFields    = ['id_pemain', 'nilai_cf', 'nilai_sf', 'nilai_akhir', 'rangking'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

@@ -43,8 +43,8 @@
         </select>
     </div>
     <div class="d-flex mt-5 flex-column">
-        <label for="kerjasama" class="form-label me-2 fw-bold">Kerjasama - Secondary (C4)</label>
-        <select id="kerjasama" name="kerjasama" class="form-select">
+        <label for="kerja_sama" class="form-label me-2 fw-bold">Kerjasama - Secondary (C4)</label>
+        <select id="kerja_sama" name="kerja_sama" class="form-select">
             <option value="">Pilih Kerjasama</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -107,7 +107,64 @@
                         console.error('Error fetching data:', error);
                     }
                 }
+        });
+
+        $('#btnHitung').on('click', function() {
+            let id_pemain = $('#pemain').val();
+            let stamina = $('#stamina').val();
+            let kecepatan = $('#kecepatan').val();
+            let kekuatan = $('#kekuatan').val();
+            let kerja_sama = $('#kerja_sama').val();
+            let pengalaman = $('#pengalaman').val();
+
+
+            $.ajax({
+                url: '/pelatih/penilaian',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    id_pemain: id_pemain,
+                    stamina: stamina,
+                    kecepatan: kecepatan,
+                    kekuatan: kekuatan,
+                    kerja_sama: kerja_sama,
+                    pengalaman: pengalaman
+                }),
+                success: function(res) {
+                    if (res.status == 201) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: res.message,
+                        }).then(() => {
+                            window.location.href = '/pelatih/hasilSeleksi';
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: res.message,
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    if (xhr.status == 422) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: xhr.responseJSON.message,
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Terjadi kesalahan pada server',
+                        });
+                    }
+                }
             });
+        });
     });
 </script>
 <?= $this->endSection() ?>
