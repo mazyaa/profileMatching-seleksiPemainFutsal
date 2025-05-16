@@ -3,21 +3,23 @@
 
 <div class="container mt-4">
     <h2>Data Pemain</h2>
-    <table class="text-center table table-striped">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Nama</th>
-                <th>Tinggi Badan</th>
-                <th>Alamat</th>
-                <th>No HP</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody id="pemainTableBody">
-            <!-- Data Pemain akan dimuat di sini -->
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="text-center table table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Tinggi Badan</th>
+                    <th>Alamat</th>
+                    <th>No HP</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="pemainTableBody">
+                <!-- Data Pemain akan dimuat di sini -->
+            </tbody>
+        </table>
+    </div>
     <div class="container mt-4">
         <button class="btn btn-primary"><a class="text-white text-decoration-none" href="<?= base_url('/pelatih/pagePenilaian') ?>">Nilai Pemain</a></button>
     </div>

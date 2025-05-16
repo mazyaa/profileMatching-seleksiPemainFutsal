@@ -40,7 +40,7 @@ class CreatehasilSeleksi extends Migration
             ],
             'status' => [
                 'type'       => 'ENUM',
-                'constraint' => ['lolos', 'tidak_lolos'],
+                'constraint' => ['lolos', 'tidak lolos'],
                 'null'       => true,
             ],
             'created_at' => [

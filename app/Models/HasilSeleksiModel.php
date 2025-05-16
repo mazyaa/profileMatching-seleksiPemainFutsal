@@ -6,13 +6,13 @@ use CodeIgniter\Model;
 
 class HasilSeleksiModel extends Model
 {
-    protected $table            = 'hasilseleksis';
+    protected $table            = 'hasil_seleksi';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_pemain', 'nilai_cf', 'nilai_sf', 'nilai_akhir', 'rangking'];
+    protected $allowedFields    = ['id_pemain', 'nilai_cf', 'nilai_sf', 'nilai_akhir', 'ranking', 'status'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

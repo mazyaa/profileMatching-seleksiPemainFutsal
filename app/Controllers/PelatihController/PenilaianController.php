@@ -10,7 +10,7 @@ use App\Models\HasilSeleksiModel;
 use App\Models\PenilaianModel;
 
 class PenilaianController extends BaseController
-{   
+{
     protected $penilaianModel;
     protected $pemainModel;
     protected $hasilSeleksiModel;
@@ -39,7 +39,7 @@ class PenilaianController extends BaseController
         return view('pelatih/hasilSeleksi', $page);
     }
 
-    public function store() 
+    public function store()
     {
         $json = $this->request->getJSON(true);
 
@@ -69,7 +69,7 @@ class PenilaianController extends BaseController
         }
 
         $this->penilaianModel->where('id_pemain', $json['id_pemain'])->delete(); // delete value if exists
-        
+
         // Insert new data
         if ($this->penilaianModel->insert($data)) {
             return $this->response->setJson([
@@ -84,6 +84,26 @@ class PenilaianController extends BaseController
         }
     }
 
+    public function getAllPenilaian()
+    {
+        $penilaian = $this->penilaianModel
+            ->select('penilaian.*, pemain.nama') // select all columns from penilaian and nama from pemain
+            ->join('pemain', 'pemain.id = penilaian.id_pemain') // join with pemain table and match id_pemain with id
+            ->findAll();
+
+        if ($penilaian) {
+            return $this->response->setJson([
+                'status' => 200,
+                'data' => $penilaian
+            ])->setStatusCode(200);
+        } else {
+            return $this->response->setJson([
+                'status' => 404,
+                'message' => 'Data tidak ditemukan'
+            ])->setStatusCode(404);
+        }
+    }
+
     public function increment()
     {
         $pemainList = $this->pemainModel->findAll();
@@ -94,51 +114,66 @@ class PenilaianController extends BaseController
             if (!$nilai) {
                 continue;
             } // if user not have penilaian, skip to the next step
+
+
+            $nilai_ideal = 5;
+
+            //incrementing the gap
+            $gaps = [
+                'stamina' => $nilai['stamina'] - $nilai_ideal,
+                'kecepatan' => $nilai['kecepatan'] - $nilai_ideal,
+                'kekuatan' => $nilai['kekuatan'] - $nilai_ideal,
+                'kerja_sama' => $nilai['kerja_sama'] - $nilai_ideal,
+                'pengalaman' => $nilai['pengalaman'] - $nilai_ideal,
+            ];
+
+            // konversi gap to nilai bobot
+            $bobot = [];
+            foreach ($gaps as $key => $gap) {
+                $bobot[$key] = $this->konversiGap($gap);
+            }
+
+            // incrementing value core factors
+            $ncf = ($bobot['stamina'] + $bobot['kecepatan'] + $bobot['kekuatan']) / 3;
+
+            // incrementing value secondary factors
+            $nsf = ($bobot['kerja_sama'] + $bobot['pengalaman']) / 2;
+
+            // incrementing value total
+            $total = ($ncf * 0.6) + ($nsf * 0.4);
+
+            $hasil[] = [
+                'id_pemain' => $pemain['id'],
+                'nama' => $pemain['nama'],
+                'nilai_asli' => [
+                    'stamina' => $nilai['stamina'],
+                    'kecepatan' => $nilai['kecepatan'],
+                    'kekuatan' => $nilai['kekuatan'],
+                    'kerja_sama' => $nilai['kerja_sama'],
+                    'pengalaman' => $nilai['pengalaman'],
+                ],
+                'gap' => $gaps,
+                'bobot_gap' => $bobot,
+                'nilai_cf' => round($ncf, 2), // use round to 2 decimal places
+                'nilai_sf' => round($nsf, 2),
+                'nilai_akhir' => round($total, 2),
+                'status' => $total >= 3 ? 'lolos' : 'tidak lolos',
+                'ranking' => 0,
+            ];
         }
-        
-        $nilai_ideal = 5;
 
-        //incrementing the gap
-        $gaps = [
-            'stamina' => $nilai['stamina'] - $nilai_ideal,
-            'kecepatan' => $nilai['kecepatan'] - $nilai_ideal,
-            'kekuatan' => $nilai['kekuatan'] - $nilai_ideal,
-            'kerja_sama' => $nilai['kerja_sama'] - $nilai_ideal,
-            'pengalaman' => $nilai['pengalaman'] - $nilai_ideal,
-        ];
-
-        // konversi gap to nilai bobot
-        $bobot =[];
-        foreach ($gaps as $key => $gap) {
-            $bobot[$key] = $this->konversiGap($gap);
-        }
-
-        // incrementing value core factors
-        $ncf = ($bobot['stamina'] + $bobot['kecepatan'] + $bobot['kekuatan']) / 3;
-
-        // incrementing value secondary factors
-        $nsf = ($bobot['kerja_sama'] + $bobot['pengalaman']) / 2;
-
-        // incrementing value total
-        $total = ($ncf * 0.6) + ($nsf * 0.4);
-
-        $hasil[] = [
-            'id_pemain' => $pemain['id'],
-            'nilai_cf' => round($ncf, 2), // use round to 2 decimal places
-            'nilai_sf' => round($nsf, 2), 
-            'nilai_akhir' => round($total, 2),
-        ];
-
-        // sorting by nilai_akhir (descending)
+        // sorting by nilai_akhir (descending) for ranking
         usort($hasil, fn($a, $b) => $b['nilai_akhir'] <=> $a['nilai_akhir']);
 
-        //delete previous data
+        //delete previous data in hasil_seleksi if exists
         $this->hasilSeleksiModel->truncate();
 
         // set ranking and status
         foreach ($hasil as $key => $value) {
             $ranking = $key + 1;
-            $status = $value['nilai_akhir'] >= 3 ? 'lolos' : 'tidak_lolos';
+            $status = $value['nilai_akhir'] >= 3 ? 'lolos' : 'tidak lolos';
+
+            $hasil[$key]['ranking'] = $ranking; // set ranking to hasil array
 
             // insert into hasil_seleksi
             $this->hasilSeleksiModel->insert([
@@ -156,8 +191,6 @@ class PenilaianController extends BaseController
             'message' => 'Perhitungan & Perangkingan selesai',
             'data' => $hasil
         ])->setStatusCode(200);
-
-       
     }
 
     private function konversiGap($gap)
@@ -175,6 +208,4 @@ class PenilaianController extends BaseController
         ];
         return $mapping[$gap] ?? 0;
     }
-
-    
 }

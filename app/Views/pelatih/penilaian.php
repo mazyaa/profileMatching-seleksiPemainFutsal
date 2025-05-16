@@ -65,7 +65,7 @@
         </select>
     </div>
     <div class="d-flex mt-4 mb-5">
-        <button type="button" class="btn btn-primary px-5" id="btnHitung">Hitung</button>
+        <button type="button" class="btn btn-primary px-5" id="btnHitung">Simpan Data</button>
     </div>
 </div>
 
