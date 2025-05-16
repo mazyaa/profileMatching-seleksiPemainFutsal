@@ -29,7 +29,7 @@ class CreatehasilSeleksi extends Migration
                 'type'       => 'FLOAT',
                 'null'       => false,
             ],
-            'nilai_total' => [
+            'nilai_akhir' => [
                 'type'       => 'FLOAT',
                 'null'       => false,
             ],

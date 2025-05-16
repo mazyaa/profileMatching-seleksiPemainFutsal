@@ -20,12 +20,27 @@ class CreatePenilaian extends Migration
                 'constraint' => 11,
                 'unsigned'   => true,
             ],
-            'id_kriteria' => [
+            'stamina' => [
                 'type'       => 'INT',
                 'constraint' => 11,
-                'unsigned'   => true,
+                'null'       => false,
             ],
-            'nilai' => [
+            'kecepatan' => [
+                'type'       => 'INT',
+                'constraint' => 11,
+                'null'       => false,
+            ],
+            'kekuatan' => [
+                'type'       => 'INT',
+                'constraint' => 11,
+                'null'       => false,
+            ],
+            'kerja_sama' => [
+                'type'       => 'INT',
+                'constraint' => 11,
+                'null'       => false,
+            ],
+            'pengalaman' => [
                 'type'       => 'INT',
                 'constraint' => 11,
                 'null'       => false,
@@ -42,7 +57,6 @@ class CreatePenilaian extends Migration
         $this->forge->addKey('id', true);
 
         $this->forge->addForeignKey('id_pemain', 'pemain', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('id_kriteria', 'kriteria', 'id', 'CASCADE', 'CASCADE');
         
         $this->forge->createTable('penilaian');
     }

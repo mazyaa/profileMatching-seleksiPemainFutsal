@@ -22,4 +22,17 @@ class PenilaianController extends BaseController
         ];
         return view('pelatih/penilaian', $page);
     }
+
+    public function store() 
+    {
+        $json = $this->request->getJSON();
+
+        $data = [
+            'id_pemain' => $json->id_pemain,
+            'id_kriteria' => $json->id_kriteria,
+            'nilai' => $json->nilai
+        ];
+    }
+
+    
 }

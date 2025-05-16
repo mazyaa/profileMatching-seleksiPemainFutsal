@@ -52,7 +52,7 @@ $userRole = session()->get('role');
     .sidebar a:hover {
       background: #495057;
       border-radius: 5px;
-      padding-left: 12px; 
+      padding-left: 12px;
     }
 
     .sidebar.hide {
@@ -89,6 +89,12 @@ $userRole = session()->get('role');
       color: #6c757d;
       font-size: 14px;
     }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   </style>
 </head>
 
@@ -115,7 +121,9 @@ $userRole = session()->get('role');
 
         <!-- Sidebar untuk Pelatih -->
         <?php if ($userRole == 'pelatih'): ?>
-          <a href="<?= base_url('/pelatih/dashboard') ?>"><h5><i class="bi bi-controller"></i> SPK Futsal</h5></a>
+          <a href="<?= base_url('/pelatih/dashboard') ?>">
+            <h5><i class="bi bi-controller"></i> SPK Futsal</h5>
+          </a>
           <a href="<?= base_url('pelatih/kriteria') ?>"><i class="bi bi-list-check me-2"></i>Kriteria</a>
           <a href="<?= base_url('pelatih/pemain') ?>"><i class="bi bi-person-plus me-2"></i>Input Data Pemain</a>
           <a href="<?= base_url('pelatih/getPemain') ?>"><i class="bi bi-people me-2"></i>Data Pemain</a>
