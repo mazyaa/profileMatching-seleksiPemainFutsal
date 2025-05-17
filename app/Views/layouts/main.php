@@ -122,7 +122,7 @@ $userRole = session()->get('role');
         <!-- Sidebar untuk Pelatih -->
         <?php if ($userRole == 'pelatih'): ?>
           <a href="<?= base_url('/pelatih/dashboard') ?>">
-            <h5><i class="bi bi-controller"></i> SPK Futsal</h5>
+            <h5><i class="bi bi-controller"></i> SPK Futsal - Profile Matcing</h5>
           </a>
           <a href="<?= base_url('pelatih/kriteria') ?>"><i class="bi bi-list-check me-2"></i>Kriteria</a>
           <a href="<?= base_url('pelatih/pemain') ?>"><i class="bi bi-person-plus me-2"></i>Input Data Pemain</a>
