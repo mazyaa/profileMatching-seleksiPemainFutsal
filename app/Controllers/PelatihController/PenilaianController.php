@@ -39,6 +39,24 @@ class PenilaianController extends BaseController
         return view('pelatih/hasilSeleksi', $page);
     }
 
+    public function pemainLolos() 
+    {
+        $page = [
+            'title' => 'Pemain Lolos',
+            'page' => 'pelatih/pemainLolos',
+        ];
+        return view('pelatih/pemainLolos', $page);
+    }
+
+    public function pemainTidakLolos() 
+    {
+        $page = [
+            'title' => 'Pemain Tidak Lolos',
+            'page' => 'pelatih/pemainTidakLolos',
+        ];
+        return view('pelatih/pemainTidakLolos', $page);
+    }
+
     public function store()
     {
         $json = $this->request->getJSON(true);
@@ -207,5 +225,47 @@ class PenilaianController extends BaseController
             -4 => 1
         ];
         return $mapping[$gap] ?? 0;
+    }
+
+    public function getHasilSeleksiByStatusLolos(){
+        $hasil = $this->hasilSeleksiModel
+            ->select('hasil_seleksi.*, pemain.*')
+            ->join('pemain', 'pemain.id = hasil_seleksi.id_pemain')
+            ->where('status', 'lolos')
+            ->orderBy('ranking', 'ASC')
+            ->findAll();
+
+        if ($hasil) {
+            return $this->response->setJson([
+                'status' => 200,
+                'data' => $hasil
+            ])->setStatusCode(200);
+        } else {
+            return $this->response->setJson([
+                'status' => 404,
+                'message' => 'Data tidak ditemukan'
+            ])->setStatusCode(404);
+        }
+    }
+
+    public function getHasilSeleksiByStatusTidakLolos(){
+        $hasil = $this->hasilSeleksiModel
+            ->select('hasil_seleksi.*, pemain.*')
+            ->join('pemain', 'pemain.id = hasil_seleksi.id_pemain')
+            ->where('status', 'tidak lolos')
+            ->orderBy('ranking', 'ASC')
+            ->findAll();
+
+        if ($hasil) {
+            return $this->response->setJson([
+                'status' => 200,
+                'data' => $hasil
+            ])->setStatusCode(200);
+        } else {
+            return $this->response->setJson([
+                'status' => 404,
+                'message' => 'Data tidak ditemukan'
+            ])->setStatusCode(404);
+        }
     }
 }

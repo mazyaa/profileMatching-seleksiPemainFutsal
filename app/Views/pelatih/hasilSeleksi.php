@@ -32,9 +32,9 @@
             </tbody>
         </table>
     </div>
-    <div class="container d-flex flex-column">
-        <h4 class="mt-5">Detail Perhitungan (Step-by-Step)</h4>
-        <div class="accordion" id="accordionDetail"></div>
+    <div class="container d-flex align-items-center flex-column">
+        <h4 class="my-5">Detail Perhitungan (Step-by-Step)</h4>
+        <div class="accordion w-100" id="accordionDetail"></div>
     </div>
 </div>
 

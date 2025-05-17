@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/main'); ?>
 <?= $this->section('content'); ?>
 <div class="container mt-4">
-    <h2>Data Kriteria Pemain</h2>
+    <h4 class="text-center my-4 fw-bold">Data Kriteria Pemain</h4>
     <table class="text-center table table-striped">
         <thead>
             <tr>
@@ -17,7 +17,7 @@
     </table>
 </div>
 <div class="container mt-5">
-    <h2>Tabel Pembobotan</h2>
+    <h4 class="text-center my-4 fw-bold">Tabel Pembobotan</h4>
     <table class="text-center table table-striped">
         <thead>
             <tr>

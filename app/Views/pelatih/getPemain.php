@@ -2,7 +2,7 @@
 <?= $this->section('content') ?>
 
 <div class="container mt-4">
-    <h2>Data Pemain</h2>
+    <h4 class="text-center my-4 fw-bold">Data Pemain</h4>
     <div class="table-responsive">
         <table class="text-center table table-striped">
             <thead>
@@ -25,16 +25,16 @@
     </div>
 </div>
 
-    <?= $this->endSection() ?>
+<?= $this->endSection() ?>
 
 
-    <?= $this->section('scripts') ?>
+<?= $this->section('scripts') ?>
 
 
-    <script>
-        $(document).ready(function() {
-            function getPemain(pemain) {
-                return `
+<script>
+    $(document).ready(function() {
+        function getPemain(pemain) {
+            return `
                 <tr>
                     <td>${pemain.id}</td>
                     <td>${pemain.nama}</td>
@@ -47,43 +47,43 @@
                     </td>
                 </tr>
                 `;
-            }
+        }
 
-            function pemainNotFound() {
-                return `
+        function pemainNotFound() {
+            return `
                 <tr>
                     <td colspan="6" class="text-center">Tidak ada data pemain ditemukan</td>
                 </tr>
                 `;
-            }
+        }
 
-            $.ajax({
-                url: '/pelatih/fetchPemain',
-                method: 'GET',
-                dataType: 'json',
-                success: function(res) {
-                    if (res.status == 200) {
-                        let pemainRows = '';
-                        res.data.forEach(pemain => {
-                            pemainRows += getPemain(pemain);
-                        });
-                        $('#pemainTableBody').html(pemainRows);
-                    }
-                },
-                error: function(xhr, status, error) {
-                   if (xhr.status == 404) {
-                        let notFoundRow = pemainNotFound();
-                        $('#pemainTableBody').html(notFoundRow);
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Terjadi kesalahan pada server'
-                        });
-                    }
+        $.ajax({
+            url: '/pelatih/fetchPemain',
+            method: 'GET',
+            dataType: 'json',
+            success: function(res) {
+                if (res.status == 200) {
+                    let pemainRows = '';
+                    res.data.forEach(pemain => {
+                        pemainRows += getPemain(pemain);
+                    });
+                    $('#pemainTableBody').html(pemainRows);
                 }
-            });
+            },
+            error: function(xhr, status, error) {
+                if (xhr.status == 404) {
+                    let notFoundRow = pemainNotFound();
+                    $('#pemainTableBody').html(notFoundRow);
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Terjadi kesalahan pada server'
+                    });
+                }
+            }
         });
-    </script>
+    });
+</script>
 
-    <?= $this->endSection() ?>
+<?= $this->endSection() ?>

@@ -2,7 +2,7 @@
 <?= $this->section('content') ?>
 
 <div class="container mt-4">
-    <h2>Input Data Pemain</h2>
+    <h4 class="text-center my-4 fw-bold">Input Data Pemain</h4>
     <div class="mb-3">
         <label for="nama" class="form-label">Nama</label>
         <input type="text" class="form-control" id="nama" name="nama" maxlength="100" required>
