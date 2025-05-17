@@ -1,6 +1,7 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
 
+
 <div class="container mt-4">
     <h2>Hasil Penilaian</h2>
     <h4 class="text-center my-4 fw-bold">Tabel Hasil Input Kriteria</h4>
@@ -151,16 +152,42 @@
             </h2>
             <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#accordionDetail">
               <div class="accordion-body">
-                <ul class="list-group mb-3">
-                  <li class="list-group-item"><strong>Nilai Asli:</strong> ${convertObj(pemain.nilai_asli)}</li>
-                  <li class="list-group-item"><strong>Penentuan Nilai GAP:</strong> ${convertObj(pemain.gap)}</li>
-                  <li class="list-group-item"><strong>Niali Bobot:</strong> ${convertObj(pemain.bobot_gap)}</li>
-                  <li class="list-group-item"><strong>Perhitungan NCF:</strong> (B1 +B2 + B3) / 3 = <strong>${pemain.nilai_cf}</strong></li>
-                  <li class="list-group-item"><strong>Perhoitungan NSF:</strong> (B1 + B2) / 2 = <strong>${pemain.nilai_sf}</strong></li>
-                  <li class="list-group-item"><strong>Nilai Akhir:</strong> (60% * NCF) + (40% * NSF) = <strong>${pemain.nilai_akhir}</strong></li>
-                  <li class="list-group-item"><strong>Status:</strong> ${pemain.status}</li>
-                  <li class="list-group-item"><strong>Ranking:</strong> ${pemain.ranking}</li>
-                </ul>
+                <table class="table table-bordered mb-3">
+                    <tbody>
+                        <tr>
+                            <th>Nilai Asli</th>
+                            <td>${convertObj(pemain.nilai_asli)}</td>
+                        </tr>
+                        <tr>
+                            <th>Penentuan Nilai GAP</th>
+                            <td>${convertObj(pemain.gap)}</td>
+                        </tr>
+                        <tr>
+                            <th>Nilai Bobot</th>
+                            <td>${convertObj(pemain.bobot_gap)}</td>
+                        </tr>
+                        <tr>
+                            <th>Perhitungan NCF</th>
+                            <td>(B1 + B2 + B3) / 3 = <strong>${pemain.nilai_cf}</strong></td>
+                        </tr>
+                        <tr>
+                            <th>Perhitungan NSF</th>
+                            <td>(B1 + B2) / 2 = <strong>${pemain.nilai_sf}</strong></td>
+                        </tr>
+                        <tr>
+                            <th>Nilai Akhir</th>
+                            <td>(60% * NCF) + (40% * NSF) = <strong>${pemain.nilai_akhir}</strong></td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>${pemain.status}</td>
+                        </tr>
+                        <tr>
+                            <th>Ranking</th>
+                            <td>${pemain.ranking}</td>
+                        </tr>
+                    </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -168,9 +195,20 @@
             });
         }
 
-        // Function to convert object to string 
+        // Function to convert object to string
         function convertObj(obj) {
-            return Object.entries(obj).map(([k, v]) => `${k}: ${v}`).join(', ');
+            let headers = Object.keys(obj).map(k => `<th>${k}</th>`).join('');
+            let values = Object.values(obj).map(v => `<td>${v}</td>`).join('');
+            return `
+            <table class="table table-sm table-bordered mb-0">
+                <thead>
+                    <tr>${headers}</tr>
+                </thead>
+
+                <tbody>
+                    <tr>${values}</tr>
+                </tbody>
+            </table>`;
         }
 
         function rankingNotFound() {

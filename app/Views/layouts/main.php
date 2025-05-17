@@ -111,18 +111,10 @@ $userRole = session()->get('role');
     <div class="d-flex flex-grow-1">
       <!-- Sidebar -->
       <div class="sidebar" id="sidebar">
-        <?php if ($userRole == 'admin'): ?>
-          <h5><i class="bi bi-controller"></i> SPK Futsal</h5>
-          <a href="<?= site_url('dashboard') ?>"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
-          <a href="<?= site_url('pelatih') ?>"><i class="bi bi-person-badge me-2"></i>Data Pelatih</a>
-          <a href="<?= site_url('pelatih/create') ?>"><i class="bi bi-person-plus me-2"></i>Tambah Pelatih</a>
-          <a id="logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
-        <?php endif; ?>
-
         <!-- Sidebar untuk Pelatih -->
         <?php if ($userRole == 'pelatih'): ?>
           <a href="<?= base_url('/pelatih/dashboard') ?>">
-            <h5><i class="bi bi-controller"></i> SPK Futsal - Profile Matching</h5>
+            <h5><i class="bi bi-controller"></i> SPK Futsal</h5>
           </a>
           <a href="<?= base_url('pelatih/kriteria') ?>"><i class="bi bi-list-check me-2"></i>Kriteria</a>
           <a href="<?= base_url('pelatih/pemain') ?>"><i class="bi bi-person-plus me-2"></i>Input Data Pemain</a>
