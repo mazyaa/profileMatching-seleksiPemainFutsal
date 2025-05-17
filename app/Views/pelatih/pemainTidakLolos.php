@@ -3,7 +3,7 @@
 
 
 <div class="container mt-4">
-    <h4 class="text-center my-4 fw-bold">Data Pemain Lolos</h4>
+    <h4 class="text-center my-4 fw-bold">Data Pemain Tidak Lolos</h4>
     <div class="table-rsponseive">
         <table class="text-center table table-striped">
             <thead>
@@ -37,7 +37,7 @@
                 <td>${pemain.nilai_cf}</td>
                 <td>${pemain.nilai_sf}</td>
                 <td>${pemain.nilai_akhir}</td>
-                <td><span class="badge bg-secondary">${pemain.status}</span></td>
+                <td><span class="badge bg-danger">${pemain.status}</span></td>
             </tr>
             `;
         }
@@ -51,7 +51,7 @@
         }
         
         $.ajax({
-        url: '/pelatih/getHasilLolos',
+        url: '/pelatih/getHasilTidakLolos',
         type: 'GET',
         dataType: 'json',
         success: function(response) {

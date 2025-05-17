@@ -267,5 +267,22 @@ class PenilaianController extends BaseController
                 'message' => 'Data tidak ditemukan'
             ])->setStatusCode(404);
         }
+
+    }
+    public function getAllStatusHasilSeleksi()
+    {
+        $hasil = $this->hasilSeleksiModel->findAll();
+
+        if ($hasil) {
+            return $this->response->setJson([
+                'status' => 200,
+                'data' => $hasil
+            ])->setStatusCode(200);
+        } else {
+            return $this->response->setJson([
+                'status' => 404,
+                'message' => 'Data tidak ditemukan'
+            ])->setStatusCode(404);
+        }
     }
 }

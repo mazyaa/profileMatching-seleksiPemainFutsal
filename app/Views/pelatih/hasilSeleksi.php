@@ -3,7 +3,7 @@
 
 <div class="container mt-4">
     <h2>Hasil Penilaian</h2>
-    <h4 class="text-center my-4">Tabel Hasil Input Kriteria</h4>
+    <h4 class="text-center my-4 fw-bold">Tabel Hasil Input Kriteria</h4>
     <div class="table-responsive">
         <table class="text-center table table-striped">
             <thead id="fetchKriteria">
@@ -25,6 +25,7 @@
                     <th>NCF</th>
                     <th>NSF</th>
                     <th>Nilai Akhir</th>
+                    <th>Minimal Nilai kelulusan</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -33,7 +34,7 @@
         </table>
     </div>
     <div class="container d-flex align-items-center flex-column">
-        <h4 class="my-5">Detail Perhitungan (Step-by-Step)</h4>
+        <h4 class="my-5 fw-bold">Detail Perhitungan (Step-by-Step)</h4>
         <div class="accordion w-100" id="accordionDetail"></div>
     </div>
 </div>
@@ -137,7 +138,8 @@
                     <td>${pemain.nilai_cf}</td>
                     <td>${pemain.nilai_sf}</td>
                     <td>${pemain.nilai_akhir}</td>
-                    <td><span class="badge ${pemain.status === 'Lolos' ? 'bg-success' : 'bg-danger'}">${pemain.status}</span></td>
+                    <td>3</td>
+                    <td><span class="badge ${pemain.status === 'lolos' ? 'bg-secondary' : 'bg-danger'}">${pemain.status}</span></td>
                 </tr>
             `);
                 accordion.append(`
@@ -151,11 +153,11 @@
               <div class="accordion-body">
                 <ul class="list-group mb-3">
                   <li class="list-group-item"><strong>Nilai Asli:</strong> ${convertObj(pemain.nilai_asli)}</li>
-                  <li class="list-group-item"><strong>GAP:</strong> ${convertObj(pemain.gap)}</li>
-                  <li class="list-group-item"><strong>Bobot GAP:</strong> ${convertObj(pemain.bobot_gap)}</li>
-                  <li class="list-group-item"><strong>NCF:</strong> ${pemain.nilai_cf}</li>
-                  <li class="list-group-item"><strong>NSF:</strong> ${pemain.nilai_sf}</li>
-                  <li class="list-group-item"><strong>Nilai Akhir:</strong> ${pemain.nilai_akhir}</li>
+                  <li class="list-group-item"><strong>Penentuan Nilai GAP:</strong> ${convertObj(pemain.gap)}</li>
+                  <li class="list-group-item"><strong>Niali Bobot:</strong> ${convertObj(pemain.bobot_gap)}</li>
+                  <li class="list-group-item"><strong>Perhitungan NCF:</strong> (B1 +B2 + B3) / 3 = <strong>${pemain.nilai_cf}</strong></li>
+                  <li class="list-group-item"><strong>Perhoitungan NSF:</strong> (B1 + B2) / 2 = <strong>${pemain.nilai_sf}</strong></li>
+                  <li class="list-group-item"><strong>Nilai Akhir:</strong> (60% * NCF) + (40% * NSF) = <strong>${pemain.nilai_akhir}</strong></li>
                   <li class="list-group-item"><strong>Status:</strong> ${pemain.status}</li>
                   <li class="list-group-item"><strong>Ranking:</strong> ${pemain.ranking}</li>
                 </ul>

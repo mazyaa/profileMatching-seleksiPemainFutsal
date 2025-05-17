@@ -49,42 +49,78 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
-
 <script>
-    // Data contoh untuk jumlah pemain
-    const dataPemain = {
-        lolos: 20,  // Misalnya pemain lolos
-        tidakLolos: 5  // Misalnya pemain tidak lolos
-    };
+    let grafikPemain; // Inisialisasi grafik secara global
 
-    // Update jumlah pemain lolos dan tidak lolos pada card
-    document.getElementById("jumlahLolos").textContent = dataPemain.lolos;
-    document.getElementById("jumlahTidakLolos").textContent = dataPemain.tidakLolos;
+    // Ambil data dari endpoint
+    $.ajax({
+        url: '/pelatih/getAllStatusHasilSeleksi',
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 200) {
+                const data = response.data;
 
-    // Grafik Statistik
-    const ctx = document.getElementById('grafikPemain').getContext('2d');
-    const grafikPemain = new Chart(ctx, {
-        type: 'bar',  // Jenis grafik yang digunakan
-        data: {
-            labels: ['Pemain Lolos', 'Pemain Tidak Lolos'],
-            datasets: [{
-                label: '',
-                data: [dataPemain.lolos, dataPemain.tidakLolos],
-                backgroundColor: ['#28a745', '#dc3545'],
-                borderColor: ['#218838', '#c82333'],  // Warna border yang sedikit lebih gelap
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true  // Mulai sumbu Y dari 0
-                }
+                // Hitung jumlah pemain lolos dan tidak lolos
+                const jumlahLolos = data.filter(p => p.status === 'lolos').length;
+                const jumlahTidakLolos = data.filter(p => p.status === 'tidak lolos').length;
+
+                // Update card
+                document.getElementById("jumlahLolos").textContent = jumlahLolos;
+                document.getElementById("jumlahTidakLolos").textContent = jumlahTidakLolos;
+
+                // Tampilkan grafik
+                const ctx = document.getElementById('grafikPemain').getContext('2d');
+                grafikPemain = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Pemain Lolos', 'Pemain Tidak Lolos'],
+                        datasets: [{
+                            label: 'Jumlah Pemain',
+                            data: [jumlahLolos, jumlahTidakLolos],
+                            backgroundColor: ['#28a745', '#dc3545'],
+                            borderColor: ['#218838', '#c82333'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false, 
+                                labels: {
+                                    color: '#333',
+                                    font: {
+                                        size: 14
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            } else {
+                console.error('Gagal memuat data: status bukan 200');
             }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching data:', error);
+            if (xhr.status === 404) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Data tidak ditemukan',
+                    text: xhr.responseJSON.message || 'Tidak ada data hasil seleksi yang ditemukan.',
+                });
+            } else {
+                console.error('Terjadi kesalahan: ' + xhr.status);
+            }
+            
         }
     });
 </script>
-
 <?= $this->endSection() ?>

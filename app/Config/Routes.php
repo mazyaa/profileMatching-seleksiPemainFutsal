@@ -39,6 +39,9 @@ $routes->group('pelatih', function ($routes) {
         /** Hasil Seleksi */
         $routes->get('pemainLolos', 'PelatihController\penilaianController::pemainLolos', ['filter' => 'pelatih']);
         $routes->get('getHasilLolos', 'PelatihController\penilaianController::getHasilSeleksiByStatusLolos', ['filter' => 'pelatih']);
+        $routes->get('pemainTidakLolos', 'PelatihController\penilaianController::pemainTidakLolos', ['filter' => 'pelatih']);
+        $routes->get('getHasilTidakLolos', 'PelatihController\penilaianController::getHasilSeleksiByStatusTidakLolos', ['filter' => 'pelatih']);
+        $routes->get('getAllStatusHasilSeleksi', 'PelatihController\penilaianController::getAllStatusHasilSeleksi', ['filter' => 'pelatih']);
 
         $routes->get('pemain/edit/(:num)', 'PelatihController\Pemain::edit/$1', ['filter' => 'pelatih']);
         $routes->post('pemain/update/(:num)', 'PelatihController\Pemain::update/$1', ['filter' => 'pelatih']);
