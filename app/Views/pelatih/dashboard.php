@@ -39,7 +39,7 @@
                         <i class="bi bi-award-fill text-success"></i>
                     </div>
                     <div>
-                        <h5 class="card-title text-white mb-1 d-flex align-items-center gap-2">
+                        <h5 class="card-title text-dark mb-1 d-flex align-items-center gap-2">
                             <i class="bi bi-stars text-warning"></i> Pemain Lolos
                         </h5>
                         <h2 id="jumlahLolos" class="fw-bold text-dark mb-0">0</h2>
@@ -61,7 +61,7 @@
                         <i class="bi bi-emoji-frown-fill text-danger"></i>
                     </div>
                     <div>
-                        <h5 class="card-title text-white mb-1 d-flex align-items-center gap-2">
+                        <h5 class="card-title text-dark mb-1 d-flex align-items-center gap-2">
                             <i class="bi bi-exclamation-triangle-fill text-warning"></i> Pemain Tidak Lolos
                         </h5>
                         <h2 id="jumlahTidakLolos" class="fw-bold text-dark mb-0">0</h2>

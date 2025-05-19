@@ -60,6 +60,7 @@ $userRole = session()->get('role');
       gap: 12px;
       padding: 0.65rem 0.75rem;
       margin-bottom: 0.3rem;
+      cursor: pointer;
       border-radius: 8px;
       font-size: 1.08rem;
       font-weight: 500;
