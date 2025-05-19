@@ -43,6 +43,7 @@ $userRole = session()->get('role');
       display: block;
       padding: 0.5rem 0;
       text-decoration: none;
+      cursor: pointer;
     }
 
     .sidebar a i {

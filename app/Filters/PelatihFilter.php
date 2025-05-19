@@ -47,7 +47,7 @@ class PelatihFilter implements FilterInterface
         $isLoggedIn = $session->get('isLoggedIn');
 
         if (!$isLoggedIn || $role !== 'pelatih') {
-            return redirect()->to('/')->with('error', 'You do not have permission to access this page.');
+            return redirect()->to('/auth/login')->with('error', 'Silahkan login terlebih dahulu!');
         }
     }
 }

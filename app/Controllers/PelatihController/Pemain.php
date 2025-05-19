@@ -62,7 +62,7 @@ class Pemain extends BaseController
     }
     public function getPemain()
     {
-       $data = [
+        $data = [
             'title' => 'Data Pemain',
             'page' => 'pelatih/getPemain',
         ];
@@ -89,29 +89,22 @@ class Pemain extends BaseController
 
     public function edit($id)
     {
-        $pemain = $this->model->find($id);
-
-        if ($pemain) {
-            return $this->response->setJson([
-                'status' => 200,
-                'data' => $pemain
-            ])->setStatusCode(200);
-        } else {
-            return $this->response->setJson([
-                'status' => 404,
-                'message' => 'Data tidak ditemukan'
-            ])->setStatusCode(404);
-        }
-    }
-    public function update($id)
-    {
         $json = $this->request->getJSON(true);
 
+        $pemain = $this->model->find($id);
+
+        if (!$pemain) {
+            return $this->response->setJson([
+                'status' => 404,
+                'message' => 'Pemain tidak ditemukan'
+            ])->setStatusCode(404);
+        }
+
         $data = [
-            'nama' => $json['nama'],
-            'tinggi_badan' => $json['tinggi_badan'],
-            'alamat' => $json['alamat'],
-            'no_hp' => $json['no_hp'],
+            'nama' => isset($json['nama']) && trim($json['nama']) !== '' ? $json['nama'] : $pemain['nama'],
+            'tinggi_badan' => isset($json['tinggi_badan']) && trim($json['tinggi_badan']) !== '' ? $json['tinggi_badan'] : $pemain['tinggi_badan'],
+            'alamat' => isset($json['alamat']) && trim($json['alamat']) !== '' ? $json['alamat'] : $pemain['alamat'],
+            'no_hp' => isset($json['no_hp']) && trim($json['no_hp']) !== '' ? $json['no_hp'] : $pemain['no_hp'],
         ];
 
         if ($this->model->update($id, $data)) {
@@ -128,10 +121,20 @@ class Pemain extends BaseController
     }
     public function delete($id)
     {
+        $session = session();
+        $userId = $session->get('id');
+
+        if (!$userId) {
+            return $this->response->setJson([
+                'status' => 401,
+                'message' => 'Unauthorized'
+            ])->setStatusCode(401);
+        }
+
         if ($this->model->delete($id)) {
             return $this->response->setJson([
                 'status' => 200,
-                'message' => 'Data berhasil dihapus'
+                'message' => 'Pemain berhasil dihapus'
             ])->setStatusCode(200);
         } else {
             return $this->response->setJson([

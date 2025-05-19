@@ -34,8 +34,7 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
-        'pelatih'       => \App\Filters\pelatihFilter::class,
-        'admin'         => \App\Filters\adminFilter::class,
+        'pelatih'       => \App\Filters\pelatihFilter::class
     ];
 
     /**

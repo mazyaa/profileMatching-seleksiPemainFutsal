@@ -1,48 +1,88 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
 
-<div class="container mt-4">
-    <h4 class="text-center my-4 fw-bold">Input Data Pemain</h4>
-    <div class="mb-3">
-        <label for="nama" class="form-label">Nama</label>
-        <input type="text" class="form-control" id="nama" name="nama" maxlength="100" required>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-gradient bg-primary text-white text-center position-relative">
+                    <i class="bi bi-person-plus-fill fs-2 position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                    <h4 class="fw-bold mb-0">Input Data Pemain</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form id="formPemain" autocomplete="off">
+                        <div class="mb-3">
+                            <label for="nama" class="form-label fw-semibold">
+                                <i class="bi bi-person-fill me-2 text-primary"></i>Nama
+                            </label>
+                            <input type="text" class="form-control" id="nama" name="nama" maxlength="100" required placeholder="Masukkan nama pemain">
+                        </div>
+                        <div class="mb-3">
+                            <label for="tinggi_badan" class="form-label fw-semibold">
+                                <i class="bi bi-arrows-vertical me-2 text-success"></i>Tinggi Badan (cm)
+                            </label>
+                            <input type="number" class="form-control" id="tinggi_badan" name="tinggi_badan" maxlength="50" required min="100" max="250" placeholder="Contoh: 170">
+                        </div>
+                        <div class="mb-3">
+                            <label for="alamat" class="form-label fw-semibold">
+                                <i class="bi bi-geo-alt-fill me-2 text-danger"></i>Alamat
+                            </label>
+                            <textarea class="form-control" id="alamat" name="alamat" rows="3" required placeholder="Masukkan alamat lengkap"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="no_hp" class="form-label fw-semibold">
+                                <i class="bi bi-telephone-fill me-2 text-warning"></i>No HP
+                            </label>
+                            <input type="tel" class="form-control" id="no_hp" name="no_hp" maxlength="20" required pattern="^08[0-9]{8,}$" placeholder="Contoh: 081234567890">
+                        </div>
+                        <button type="submit" id="kirimData" class="btn btn-primary w-100 fw-bold d-flex align-items-center justify-content-center gap-2">
+                            <span id="btnText"><i class="bi bi-save2-fill me-1"></i>Simpan</span>
+                            <span id="btnLoading" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="tinggi_badan" class="form-label">Tinggi Badan</label>
-        <input type="text" class="form-control" id="tinggi_badan" name="tinggi_badan" maxlength="50" required>
-    </div>
-    <div class="mb-3">
-        <label for="alamat" class="form-label">Alamat</label>
-        <textarea class="form-control" id="alamat" name="alamat" rows="3" required></textarea>
-    </div>
-    <div class="mb-3">
-        <label for="no_hp" class="form-label">No HP</label>
-        <input type="text" class="form-control" id="no_hp" name="no_hp" maxlength="20" required>
-    </div>
-    <button type="submit" id="kirimData" class="btn btn-primary">Simpan</button>
 </div>
 
 <?= $this->endSection() ?>
 
-
 <?= $this->section('scripts') ?>
+
+
 <script>
     $(document).ready(function() {
+        // Real-time validation
+        $('#formPemain input, #formPemain textarea').on('input', function() {
+            if (this.checkValidity()) {
+                $(this).removeClass('is-invalid');
+            }
+        });
 
-
-        $('#kirimData').on('click', function(e) {
+        $('#formPemain').on('submit', function(e) {
             e.preventDefault();
 
-            let nama = $('#nama').val();
-            let tinggi_badan = $('#tinggi_badan').val();
-            let alamat = $('#alamat').val();
-            let no_hp = $('#no_hp').val();
+            let valid = true;
+            $('#formPemain input, #formPemain textarea').each(function() {
+                if (!this.checkValidity()) {
+                    $(this).addClass('is-invalid');
+                    valid = false;
+                } else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+            if (!valid) return;
+
+            $('#btnText').addClass('d-none');
+            $('#btnLoading').removeClass('d-none');
+            $('#kirimData').prop('disabled', true);
 
             let data = {
-                nama: String(nama ?? ''),
-                tinggi_badan: String(tinggi_badan ?? ''),
-                alamat: String(alamat ?? ''),
-                no_hp: String(no_hp ?? '')
+                nama: String($('#nama').val() ?? ''),
+                tinggi_badan: String($('#tinggi_badan').val() ?? ''),
+                alamat: String($('#alamat').val() ?? ''),
+                no_hp: String($('#no_hp').val() ?? '')
             };
 
             $.ajax({
@@ -52,20 +92,21 @@
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 success: function(response) {
+                    $('#btnText').removeClass('d-none');
+                    $('#btnLoading').addClass('d-none');
+                    $('#kirimData').prop('disabled', false);
+
                     if (response.status == 201) {
                         Swal.fire({
                             icon: 'success',
                             title: 'Berhasil!',
                             text: response.message,
-                            timer: 1000,
+                            timer: 1200,
                             showConfirmButton: false
                         }).then(() => {
                             window.location.href = '/pelatih/getPemain';
                         });
-                        $('#nama').val('');
-                        $('#tinggi_badan').val('');
-                        $('#alamat').val('');
-                        $('#no_hp').val('');
+                        $('#formPemain')[0].reset();
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -74,7 +115,11 @@
                         });
                     }
                 },
-                error: function(xhr, status, error) {
+                error: function(xhr) {
+                    $('#btnText').removeClass('d-none');
+                    $('#btnLoading').addClass('d-none');
+                    $('#kirimData').prop('disabled', false);
+
                     if (xhr.status == 422) {
                         Swal.fire({
                             icon: 'error',
@@ -85,7 +130,7 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Gagal!',
-                            text: xhr.responseJSON.message || 'Terjadi kesalahan pada server.'
+                            text: xhr.responseJSON?.message || 'Terjadi kesalahan pada server.'
                         });
                     } else {
                         Swal.fire({
@@ -99,6 +144,4 @@
         });
     });
 </script>
-
-
 <?= $this->endSection() ?>
